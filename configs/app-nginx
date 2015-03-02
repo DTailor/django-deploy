@@ -1,0 +1,25 @@
+server {
+
+    listen   80;
+    server_name example.com www.example.com;
+    root /path/to/project/root;
+    index index.html index.htm;
+
+    location / {
+        uwsgi_pass app_app;
+        include uwsgi_params;
+    }
+
+    location /static {
+        alias /path/to/static;
+        gzip_static on;
+    }
+
+    location /media {
+        alias /path/to/media;
+    }
+}
+
+upstream controlez_app {
+    server unix:///tmp/to/app.sock;
+}
